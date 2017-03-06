@@ -1,23 +1,12 @@
-var express = require('express');
-var app = express();
-
-app.route('/events')
-.all(function(req,res,next){
-
-})
-.get(function(req,res,next){
-	res.json()
-})
-.post(function(req,res,next){
-	//maybe add a new event..
-})
+function errorHandler(err,req,res,next){
+	if(res.headersSent){
+		return next(err)
+	}
+	res.status(500)
+	res.render('error',{error:err})
+}
 
 
-
-
-app.listen(3000, function () {
- console.log('Example app listening on port 3000!')
-});
 
 /*
 var express = require('express')
