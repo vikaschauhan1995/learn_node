@@ -1,10 +1,27 @@
-function errorHandler(err,req,res,next){
-	if(res.headersSent){
-		return next(err)
-	}
-	res.status(500)
-	res.render('error',{error:err})
+var express = require('express');
+var app = express();
+
+function mw1(req,res,next){
+	next();
 }
+function mw2(req,res,next){
+	next();
+}
+var r1 = express.Router();
+r1.get('/',function(req,res,next){
+	next();
+})
+var r2 = express.Router();
+r2.get('/',function(req,res,next){
+	next();
+})
+var subApp = express();
+subApp.get('/',function(req,res,next){
+	next();
+})
+app.use(mw1,[mw2,r1,r2],subApp);
+
+
 
 
 
